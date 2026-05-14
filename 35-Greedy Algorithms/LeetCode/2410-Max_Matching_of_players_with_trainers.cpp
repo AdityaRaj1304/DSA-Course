@@ -1,0 +1,23 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+class Solution {
+public:
+    int matchPlayersAndTrainers(vector<int>& players, vector<int>& trainers) {
+        sort(players.begin(),players.end());
+        sort(trainers.begin(),trainers.end());
+        int m = players.size();
+        int n = trainers.size();
+        int p =0 , t=0;
+        int ans =0;
+        while(p<m && t<n){
+            if(players[p]<=trainers[t]){
+                ans++;
+                p++,t++;
+            }else{
+                t++;
+            }
+        }
+        return ans;
+    }
+};

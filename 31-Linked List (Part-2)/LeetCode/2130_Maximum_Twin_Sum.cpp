@@ -1,0 +1,52 @@
+#include<bits/stdc++.h>
+using namespace std;
+struct ListNode {
+    int val;
+    ListNode *next;
+    ListNode() : val(0), next(nullptr) {}
+    ListNode(int x) : val(x), next(nullptr) {}
+    ListNode(int x, ListNode *next) : val(x), next(next) {}
+};
+class Solution {
+public:
+    int pairSum(ListNode* head) {
+    if(!head || !head->next){
+        return head->val;
+    }
+        int ans = INT_MIN;
+        ListNode *left = head;
+        ListNode* right = reverse(splitAtMid(head));
+        while(left!=NULL && right!=NULL){
+        int sum = left->val + right->val;
+        ans = max(sum,ans);
+        left=left->next;
+        right=right->next;
+        }
+        return ans;
+    }
+    ListNode* splitAtMid(ListNode* head){
+        ListNode *prev = NULL ;
+        ListNode *fast =head , *slow = head; 
+        while(fast!=NULL && fast->next!=NULL){
+            prev = slow;
+            slow = slow->next;
+            fast=fast->next->next;
+        }
+        if(prev!=NULL){
+            prev->next=NULL;
+        }
+        return slow;
+    }
+    ListNode* reverse(ListNode* head){
+        ListNode* prev = NULL;
+        ListNode* curr = head;
+        while(curr!=NULL){
+            ListNode * next = curr->next;
+            curr->next=prev;
+            prev=curr;
+            curr=next;
+        }
+        return prev;
+    }
+};
+
