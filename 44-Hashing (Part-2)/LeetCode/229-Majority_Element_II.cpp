@@ -1,31 +1,28 @@
 #include<bits/stdc++.h>
 using namespace std;
 
+
+//Hash Map =TC = O(n) & SC = O(n) {Worst}
 class Solution {
 public:
     vector<int> majorityElement(vector<int>& nums) {
+        unordered_map<int,int> freq;
+        vector<int> ans;
         int n = nums.size();
-        unordered_map<int,int>m;
-        unordered_set<int>s;
-        if(n<3){
-            return nums;
+        for(int num : nums){
+            freq[num]++;
         }
-        int threshold = floor(n/3);
-        for(int num:nums){
-            if(s.count(num)){
-                continue;
-            }else{
-                if(m.count(num)){
-                    m[num]++;
-                    if(m[num]>threshold){
-                        s.insert(num);
-                    }
-                }else{
-                    m[num]=1;
-                }
+        for(auto it : freq){
+            if(it.second > n/3){
+                ans.push_back(it.first);
             }
         }
-        vector<int>ans(s.begin(),s.end());
         return ans;
     }
 };
+
+
+//Boyer-Moore Voting
+
+
+
