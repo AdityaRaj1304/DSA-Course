@@ -21,7 +21,7 @@ public:
     void insert(string key){ //TC = O(L)
         Node* temp = root;
         for(char ch : key){
-            if(temp->children[ch]==0){
+            if(temp->children.count(ch)==0){
                 temp->children[ch]=new Node();//insert
             }
             temp = temp->children[ch];//level update
