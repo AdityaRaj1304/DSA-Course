@@ -29,13 +29,16 @@ public:
     void bfs(){
         queue<int>q;
         vector<bool>vis(V,false);
+
         q.push(0);
         vis[0]=true;
+
         while(q.size()>0){
             int u = q.front();
             q.pop();
             cout << u << " ";
             list<int> neighbours = l[u];
+            
             for(int v:neighbours){
                 if(!vis[v]){
                     vis[v]=true;

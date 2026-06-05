@@ -59,8 +59,7 @@ public:
                 return true;
             }
             q.pop();
-            list<int>neighbours = l[u];
-            for(int v:neighbours){
+            for(int v:l[u]){
                 if(!vis[v]){
                     vis[v]=true;
                     q.push(v);
