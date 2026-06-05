@@ -46,6 +46,29 @@ public:
         vector<int>vis(V,false);
         return hasPathHelper(src,dest,vis);
     }
+
+
+    bool hasPath_bfs(int src , int dest){
+        queue<int>q;
+        vector<bool>vis(V,false);
+        vis[src]=true;
+        q.push(src);
+        while(q.size()>0){
+            int u = q.front();
+            if(u==dest){
+                return true;
+            }
+            q.pop();
+            list<int>neighbours = l[u];
+            for(int v:neighbours){
+                if(!vis[v]){
+                    vis[v]=true;
+                    q.push(v);
+                }
+            }
+        }
+        return false;
+    }
 };
 
 int main(){
@@ -57,7 +80,7 @@ int main(){
     graph.addEdge(3,5);
     graph.addEdge(4,5);
     graph.addEdge(5,6);
-    graph.print();
-    cout << graph.hasPath(0,6);
+    //graph.print();
+    cout << graph.hasPath_bfs(0,5);
     return 0;
 }
