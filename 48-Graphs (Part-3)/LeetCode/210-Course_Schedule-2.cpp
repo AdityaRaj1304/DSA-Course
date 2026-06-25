@@ -11,13 +11,13 @@ public:
             graph[v].push_back(u);
         }
     }
-    bool topoHelper(vector<vector<int>>& graph, int src, vector<bool>& vis,
+    bool isCycle(vector<vector<int>>& graph, int src, vector<bool>& vis,
                     vector<bool>& recPath, stack<int>& s) {
         vis[src] = true;
         recPath[src] = true;
         for (int v : graph[src]) {
             if (!vis[v]) {
-                if (topoHelper(graph, v, vis, recPath, s)) {
+                if (isCycle(graph, v, vis, recPath, s)) {
                     return true;
                 }
             } else {
@@ -35,7 +35,7 @@ public:
         vector<bool> recPath(V, false);
         for (int i = 0; i < V; i++) {
             if (!vis[i]) {
-                if (topoHelper(graph, i, vis, recPath, s)) {
+                if (isCycle(graph, i, vis, recPath, s)) { //Cyle Exist
                     return true;
                 }
             }
@@ -46,7 +46,7 @@ public:
         vector<vector<int>> graph(numCourses);
         dirGraph(prerequisites, graph);
         stack<int> s;
-        if (topoSort(graph, numCourses, s)) {
+        if (topoSort(graph, numCourses, s)) { //Cyle Exist
             return {};
         }
         vector<int> ans;

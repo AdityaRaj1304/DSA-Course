@@ -44,7 +44,7 @@ public:
     bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
         vector<vector<int>> graph(numCourses);
         dirGraph(prerequisites, graph);
-        if (isCycle(graph, numCourses)) {
+        if (isCycle(graph, numCourses)) {//Cycle Exist
             return false;
         }
         return true;
