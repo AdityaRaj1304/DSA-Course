@@ -1,0 +1,60 @@
+#include <bits/stdc++.h>
+using namespace std;
+using ll = long long;
+
+class Solution {
+public:
+    int findCheapestPrice(int n, vector<vector<int>>& flights, int src, int dst, int k) {
+        vector<pair<int,int>>graph[n];
+        for(int i =0;i<flights.size();i++){
+            int u = flights[i][0];
+            int v = flights[i][1];
+            int wt = flights[i][2];
+            graph[u].push_back({v,wt});
+        }
+        queue<pair<int,pair<int,int>>>q;
+        vector<int>dist(n,INT_MAX);
+        dist[src]=0;
+        q.push({0,{0,-1}});
+        while(q.size()>0){
+            auto val = q.front();
+            q.pop();
+            int u = val.first;
+            int cost = val.second.first;
+            int stops = val.second.second;
+            for(auto edge:graph[u]){
+                int v =  edge.first;
+                int wt = edge.second;
+                if(dist[v]>dist[u]+wt && stops+1<=k){
+                    dist[v]=dist[u]+wt;
+                    q.push({v,{dist[v],stops+1}});
+                }
+            }
+        }
+        return dist[dst]==INT_MAX ? -1:dist[dst];
+    }
+};
+
+
+
+//M-2 Bellam Ford 
+class Solution {
+public:
+    int findCheapestPrice(int n, vector<vector<int>>& flights, int src, int dst, int k) {
+        vector<int>dist(n,INT_MAX);
+        dist[src]=0;
+        for(int i =0;i<=k;i++){
+            vector<int>temp=dist;
+            for(auto&edge:flights){
+                int u = edge[0];
+                int v = edge[1];
+                int wt = edge[2];
+                if(dist[u]!=INT_MAX && dist[u]+wt<temp[v]){
+                    temp[v]=dist[u]+wt;
+                }
+            }
+            dist=temp;
+        }
+        return dist[dst]==INT_MAX ? -1:dist[dst];
+    }
+};
