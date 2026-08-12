@@ -41,21 +41,24 @@ public:
     bool equationsPossible(vector<string>& equations) {
         DisjointSet dsu(26);
         for(string eq:equations){
-            char u = eq[0]='a';
-            char v = eq[3]='a';
+            char u = eq[0];
+            char v = eq[3];
             if(eq[1]=='='){
-                dsu.unionByRank(u,v);
-            }
-        }
-        for(string eq:equations){
-            char u = eq[0]='a';
-            char v = eq[3]='a';
-            if(eq[1]=='!'){
+                if(dsu.find(u)!=dsu.find(v)){
+                    return false;
+                }else{
+                    dsu.unionByRank(u,v);
+                }
+            }else{
                 if(dsu.find(u)==dsu.find(v)){
                     return false;
+                }else{
+                    dsu.unionByRank(u,v);
                 }
             }
         }
         return true;
     }
 };
+
+
