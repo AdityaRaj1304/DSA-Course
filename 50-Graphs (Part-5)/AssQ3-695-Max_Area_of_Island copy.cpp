@@ -32,3 +32,26 @@ public:
         return ans;
     }
 };
+
+
+class Solution {
+public:
+    int scheduleCourse(vector<vector<int>>& courses) {
+        sort(courses.begin(),courses.end(),[&](auto a ,auto b){
+            if(a[1]==b[1]){
+                return a[0]<b[0];
+            }
+            return a[1]<b[1];
+        });
+        int ans =0;
+        int time =0;
+        for(auto course:courses){
+            time+=course[0];
+            if(time>course[1]){
+                return ans;
+            }
+            ans++;
+        }
+        return ans;
+    }
+};
