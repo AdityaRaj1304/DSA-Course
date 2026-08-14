@@ -7,14 +7,12 @@ public:
     int orangesRotting(vector<vector<int>>& grid) {
         int m = grid.size();
         int n = grid[0].size();
-        queue<pair<int,int>q;
-        vector<vector<bool>>vis(m,vector<bool>(n,false));
+        queue<pair<int,int>>q;
         int fresh =0;
         for(int i =0;i<m;i++){
             for(int j =0;j<n;j++){
                 if(grid[i][j]==2){
                     q.push({i,j});
-                    vis[i][j]=true;
                 }else if(grid[i][j]==1){
                     fresh++;
                 }
@@ -29,20 +27,24 @@ public:
         int ans =0;
         while(q.size()>0){
             int sz = q.size();
-            while(size--){
-                auto[x,y]=q.front();
+            bool valid = false;
+            while(sz--){
+                auto[u,v]=q.front();
                 q.pop();
                 for(int i=0;i<4;i++){
-                    x=x+dx[i];
-                    y=y+dy[i];
-                    if(x>=0&&&x<m&&y>=0&&y<n&&!vis[x][y]&&grid[x][y]==1){
-                        vis[x][y]=true;
+                    int x=u+dx[i];
+                    int y=v+dy[i];
+                    if(x>=0&&x<m&&y>=0&&y<n&&grid[x][y]==1){
+                        grid[x][y]=2;
                         rotten++;
                         q.push({x,y});
+                        valid=true;
                     }
                 }
             }
-            ans++;
+            if(valid){
+                ans++;
+            }
         }
         return rotten==fresh ? ans:-1;
     }
