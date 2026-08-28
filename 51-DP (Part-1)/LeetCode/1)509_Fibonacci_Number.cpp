@@ -15,9 +15,3 @@ int fib(int n , vector<int>&dp){
 
 
 
-int main(){
-    int n = 6;
-    vector<int>dp(n+1,-1);
-    cout << fib(n,dp);
-    return 0;
-}
