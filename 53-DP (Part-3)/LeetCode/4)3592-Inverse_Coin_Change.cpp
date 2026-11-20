@@ -10,10 +10,10 @@ public:
         for(int i=1;i<=n;i++){
             if(numWays[i-1]==1){
                 ans.push_back(i);
-                numWays[i-1]=0;
                 for(int j=n;j>i;j--){
                     numWays[j-1]-=numWays[j-i-1];
                 }
+                numWays[i-1]=0;
             }
         }
         for(int ways:numWays){
